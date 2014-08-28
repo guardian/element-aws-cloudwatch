@@ -113,7 +113,7 @@ Element to retrieve statistics data from the AWS CloudWatch service.
         var period = computePeriod(this.starttime, this.endtime, this.resolution);
 
         var statistics = this.statistics.split(' ').map(capitalise);
-        this.cloudWatch.getMetricStatistics({
+        this.cloudwatch.getMetricStatistics({
             Namespace:  this.namespace,
             MetricName: this.metricname,
             Dimensions: dimensions,
