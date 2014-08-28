@@ -1,0 +1,7 @@
+{
+  "name": "element-aws-cloudwatch#gh-pages",
+  "private": true,
+  "dependencies": {
+    "aws-cloudwatch": "guardian/element-aws-cloudwatch#master"
+  }
+}

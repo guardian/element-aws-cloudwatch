@@ -1,0 +1,20 @@
+{
+  "name": "aws-cloudwatch",
+  "version": "0.1.0",
+  "authors": [
+    "Sébastien Cevey <seb.cevey@theguardian.com>"
+  ],
+  "description": "Element to retrieve statistics data from the AWS CloudWatch service",
+  "keywords": "aws, cloudwatch, monitoring, polymer, web-components",
+  "main": "aws-cloudwatch.html",
+  "license": "Apache-2",
+  "homepage": "https://github.com/guardian/element-aws-cloudwatch/",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.4",
+    "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3",
+    "aws-sdk-js": "~2.0.15"
+  }
+}
