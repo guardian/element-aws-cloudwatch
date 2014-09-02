@@ -40,6 +40,17 @@ Element to retrieve statistics data from the AWS CloudWatch service.
       return base * Math.max(1, Math.round(x / base));
     }
 
+    function asDate(dateish) {
+      var date;
+      if (dateish instanceof Date) {
+        date = dateish;
+      } else {
+        // Optimistically convert String/Number to date
+        date = new Date(dateish);
+      }
+      return date;
+    }
+
     function computePeriod(start, end, resolution) {
       var rangeInMillis = end - start;
       var rangeInSecs = rangeInMillis / 1000;
@@ -110,15 +121,17 @@ Element to retrieve statistics data from the AWS CloudWatch service.
           };
         });
 
-        var period = computePeriod(this.starttime, this.endtime, this.resolution);
+        var start  = asDate(this.starttime);
+        var end    = asDate(this.endtime);
+        var period = computePeriod(start, end, this.resolution);
 
         var statistics = this.statistics.split(' ').map(capitalise);
         this.cloudwatch.getMetricStatistics({
             Namespace:  this.namespace,
             MetricName: this.metricname,
             Dimensions: dimensions,
-            StartTime:  this.starttime.toISOString(),
-            EndTime:    this.endtime.toISOString(),
+            StartTime:  start.toISOString(),
+            EndTime:    end.toISOString(),
             Period:     period, // seconds
             Statistics: statistics
         }, function(err, data) {
