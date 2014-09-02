@@ -6,11 +6,11 @@ Element to retrieve statistics data from the AWS CloudWatch service.
 
 ##### Example
 
-    <aws-cloudwatch config="{{awsContent}}"
+    <aws-cloudwatch config="{{awsConfig}}"
                     namespace="AWS/ELB"
                     metricname="Latency"
-                    starttime="{{timeRangeStart}}"
-                    endtime="{{timeRangeEnd}}"
+                    starttime="2014-09-13T20:14:33Z"
+                    endtime="2014-09-13T21:14:33Z"
                     resolution="60"
                     statistics="average maximum"
                     sink="{{latencyStats}}">
