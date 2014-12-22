@@ -13,8 +13,8 @@
     "**/.*"
   ],
   "dependencies": {
-    "polymer": "~0.4.1",
-    "polymer-test-tools": "Polymer/polymer-test-tools#~0.4.1",
-    "aws-sdk-js": "~2.0.18"
+    "polymer": "^0.5.2",
+    "polymer-test-tools": "Polymer/polymer-test-tools#^0.5.2",
+    "aws-sdk-js": "^2.1.4"
   }
 }
