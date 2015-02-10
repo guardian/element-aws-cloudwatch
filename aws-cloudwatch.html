@@ -102,6 +102,14 @@ Element to retrieve statistics data from the AWS CloudWatch service.
 
       /* == Internal methods == */
 
+      // Observe light DOM for changes to aws-dimensions
+      ready: function() {
+        var observer = new MutationObserver(function(mutations) {
+          this.update()
+        }.bind(this));
+        observer.observe(this, {childList: true, attributes: true, subtree: true});
+      },
+
       update: function() {
         // Abort if the config is not ready yet
         if (! this.config) {
