@@ -59,22 +59,6 @@ Element to retrieve statistics data from the AWS CloudWatch service.
       return roundTo(targetPeriod, 60);
     }
 
-    function queryCloudWatch(cloudWatch, queryParams, callback) {
-      var attrs = queryParams.Statistics;
-      var query = {
-        // boring...
-        Namespace:  queryParams.Namespace,
-        MetricName: queryParams.MetricName,
-        Dimensions: queryParams.Dimensions,
-        StartTime:  queryParams.StartTime,
-        EndTime:    queryParams.EndTime,
-        Period:     queryParams.Period,
-        Statistics: queryParams.Statistics
-      };
-
-      cloudWatch.getMetricStatistics(query, callback);
-    }
-
     Polymer('aws-cloudwatch', {
       observe: {
         // Note: needed in case the config will be ready later
@@ -144,12 +128,21 @@ Element to retrieve statistics data from the AWS CloudWatch service.
             Statistics: statistics
         }, function(err, data) {
             this.sink = statistics.reduce(function(all, stat) {
-              all[stat.toLowerCase()] = data.Datapoints.map(function(point) {
+              var points = data.Datapoints.map(function(point) {
                 return [point.Timestamp, point[stat]];
               }).sort(function(a, b) {
                 // data may come out of order
                 return a[0] - b[0];
               });
+
+              // If no data, inject dummy 0 datapoint to appease graph
+              // that doesn't like empty series
+              if (points.length === 0) {
+                points = [[start, 0]];
+              }
+
+              all[stat.toLowerCase()] = points;
+
               return all;
             }, {});
         }.bind(this));
